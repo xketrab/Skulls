@@ -1,1 +1,5 @@
 data:
+
+options:
+  removemoney: 500
+  addmoney: 300

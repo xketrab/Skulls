@@ -8,15 +8,28 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class JoinListener implements Listener {
 
-    static Skulls main = new Skulls();
+    private final Skulls plugin;
+
+    public JoinListener(Skulls plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
-    public static void OnJoin(PlayerJoinEvent event){
+    public void OnJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
 
         if(!player.hasPlayedBefore()){
-            main.getConfig().set("data." + player.getUniqueId().toString() + ".nick", player.getDisplayName());
-            main.getConfig().set("data." + player.getUniqueId().toString() + ".skull", false);
+            plugin.getConfig().set("data." + player.getUniqueId().toString() + ".nick", player.getDisplayName());
+            plugin.getConfig().set("data." + player.getUniqueId().toString() + ".skull", false);
+            plugin.saveConfig();
+            plugin.reloadConfig();
+        }else{
+            if(!plugin.getConfig().contains("data." + player.getUniqueId().toString())){
+                plugin.getConfig().set("data." + player.getUniqueId().toString() + ".nick", player.getDisplayName());
+                plugin.getConfig().set("data." + player.getUniqueId().toString() + ".skull" , false);
+                plugin.saveConfig();
+                plugin.reloadConfig();
+            }
         }
     }
 }
