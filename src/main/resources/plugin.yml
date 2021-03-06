@@ -1,0 +1,6 @@
+name: Skulls
+version: ${project.version}
+main: me.bartek.skulls.Skulls
+api-version: 1.16
+authors: [ xketrab ]
+website: https://linktr.ee/ketrab
