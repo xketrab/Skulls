@@ -27,9 +27,9 @@ public class SkullCommand implements CommandExecutor {
             Player n = Bukkit.getPlayer(args[1]);
             boolean skull = plugin.getConfig().getBoolean("data." + n.getUniqueId().toString() + ".skull");
             if(skull){
-                player.sendMessage(ChatColor.RED + "Player " + plugin.getConfig().get("data." + n.getUniqueId().toString() + ".name") + " have skull.");
+                player.sendMessage(ChatColor.RED + "Player " + plugin.getConfig().get("data." + n.getUniqueId().toString() + ".nick") + " have skull.");
             }else{
-                player.sendMessage(ChatColor.GREEN + "Player " + plugin.getConfig().get("data." + n.getUniqueId().toString() + ".name") + " doesn't have skull.");
+                player.sendMessage(ChatColor.GREEN + "Player " + plugin.getConfig().get("data." + n.getUniqueId().toString() + ".nick") + " doesn't have skull.");
             }
         }else if(args[0].equalsIgnoreCase("add")){
             Player n = Bukkit.getPlayer(args[1]);
@@ -38,21 +38,28 @@ public class SkullCommand implements CommandExecutor {
                 player.sendMessage(ChatColor.RED + "This player already have skull!");
             }else{
                 plugin.getConfig().set("data." + n.getUniqueId().toString() + ".skull", true);
-                player.sendMessage(ChatColor.GREEN + "Success! Player " + plugin.getConfig().get("data." + n.getUniqueId().toString() + ".name") + " have skull now.");
+                player.sendMessage(ChatColor.GREEN + "Success! Player " + plugin.getConfig().get("data." + n.getUniqueId().toString() + ".nick") + " have skull now.");
                 reloadConfig();
             }
         }else if(args[0].equalsIgnoreCase("remove")){
             Player n = Bukkit.getPlayer(args[1]);
+            player.sendMessage("uuid args 1 -> " + n.getUniqueId().toString());
+            player.sendMessage("uuid args1 without .toString -> " + n.getUniqueId());
+            player.sendMessage("skull args1 -> " + plugin.getConfig().getBoolean("data." + n.getUniqueId().toString() + ".skull"));
+            player.sendMessage("nickname args1 -> " + plugin.getConfig().get("data." + n.getUniqueId().toString() + ".nick"));
             boolean skull = plugin.getConfig().getBoolean("data." + n.getUniqueId().toString() + ".skull");
             if(!skull){
                 player.sendMessage(ChatColor.RED + "This player doesn't have skull.");
             }else{
-                plugin.getConfig().set("data." + n.getUniqueId().toString() + ".skull", false);
-                player.sendMessage(ChatColor.GREEN + "Success! Player " + plugin.getConfig().get("data." + n.getUniqueId().toString() + ".name") + "doesn't have skull now.");
-                reloadConfig();
+                String path = "data." + n.getUniqueId().toString() + ".skull";
+                player.sendMessage(path);
+                plugin.getConfig().set(path,false);
+                player.sendMessage(ChatColor.GREEN + "Success! Player " + plugin.getConfig().get("data." + n.getUniqueId().toString() + ".nick") + " doesn't have skull now.");
+                //reloadConfig();
             }
         }else if(args[0].equalsIgnoreCase("reload")){
-            reloadConfig();
+            //reloadConfig();
+            plugin.reloadConfig();
         }
 
 
