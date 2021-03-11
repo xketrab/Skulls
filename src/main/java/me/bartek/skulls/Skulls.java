@@ -23,6 +23,8 @@ public class Skulls extends JavaPlugin implements CommandExecutor {
         this.getServer().getPluginManager().registerEvents(new DeathListener(this), this);
         this.saveDefaultConfig();
 
+        // testing if this works.
+
         this.getCommand("skull").setExecutor(new SkullCommand(this));
         this.getCommand("skull").setTabCompleter(new SkullCommandTabCompleter(this));
 
